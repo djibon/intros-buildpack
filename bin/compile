@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+echo "-----> Found a .intros file"
+
+# Bail early but noisily
+if [ ! -s $1/.intros ]; then
+  echo ".intross empty. Skipping." | indent
+  exit 0
+fi
+
+cd $1
+echo $1
