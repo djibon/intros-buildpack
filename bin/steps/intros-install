@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+source $BIN_DIR/utils
+
+bpwatch start installintros
+
+set +e
+
+echo "----> Install Intro by starting a project" 
+
+django-admin.py startproject  --template ../app intros_example  2>&1 | indent
+
+mkdir /app/data
+mkdir /app/data/logs
+
+mkdir intros_example/data
+mkdir intros_example/data/logs
+
+python intros_example/manage.py syncdb  --noinput
+python intros_example/manage.py migrate --all
+cp intros_example.sqlite intros_example/
+
+ls -all
+
+bpwatch stop installintros

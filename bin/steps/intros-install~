@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source $BIN_DIR/utils
+
+bpwatch start installintros
+
+set +e
+
+echo "----> Install Intro by starting a project" 
+
+django-admin.py startproject  --template ../app intros_example  2>&1 | indent
+
+ls -all .
+
+bpwatch stop installintros
